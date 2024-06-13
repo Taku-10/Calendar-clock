@@ -5,21 +5,19 @@ export default function Calendly() {
   const [date, setDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [events, setEvents] = useState({});
-
   // Get the number of days in the current month
   const daysInMonth = new Date(
     date.getFullYear(),
     date.getMonth() + 1,
     0
   ).getDate();
-
   // Get the day of the week the first day of the month falls on
+
   const firstDayOfMonth = new Date(
     date.getFullYear(),
     date.getMonth(),
     1
   ).getDay();
-
   // Array of days to display in the calendar
   const days = [];
   // Fill the array with empty strings for the days before the first day of the month
@@ -33,14 +31,12 @@ export default function Calendly() {
 
   function handleClick(day) {
     setSelectedDate(day);
-
     // Prompt user to enterevent for the selected day on the calendar
     const event = window.prompt(
       `Enter event for ${date.toLocaleString("default", {
         month: "long",
       })} ${day}, ${date.getFullYear()}`
     );
-
     // If an event is entered , dd it to the events list
     if (event) {
       // YYYY-MM-DD = key
@@ -76,11 +72,14 @@ export default function Calendly() {
                 const dayKey = `${date.getFullYear()} - ${
                   date.getMonth() + 1
                 } - ${day}`;
-
                 const eventForDay = events[dayKey];
 
                 return (
-                  <td key={dayIndex} onClick={() => handleClick(day)}>
+                  <td
+                    key={dayIndex}
+                    className={day === selectedDate ? "selected" : ""}
+                    onClick={() => handleClick(day)}
+                  >
                     {day !== "" && (
                       <>
                         <div>{day}</div>
